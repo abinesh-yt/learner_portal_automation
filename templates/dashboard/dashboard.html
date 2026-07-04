@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>CampusAutomationSuite</h1>
+
+<form method="post">
+
+    {% csrf_token %}
+
+    <p>
+        Website URL<br>
+        <input type="text" name="website_url" value="{{ profile.website_url }}">
+    </p>
+
+    <p>
+        Username<br>
+        <input type="text" name="username" value="{{ profile.username }}">
+    </p>
+
+    <p>
+        Password<br>
+        <input type="password" name="password" value="{{ profile.password }}">
+    </p>
+
+    <p>
+        <input type="checkbox"
+               name="automation_enabled"
+               {% if profile and profile.automation_enabled %}checked{% endif %}>
+        Enable Automation
+    </p>
+
+    <p>
+        <input type="checkbox"
+               name="headless"
+               {% if profile and profile.headless %}checked{% endif %}>
+        Headless
+    </p>
+
+    <p>
+        Retry Count<br>
+        <input type="number"
+               name="retry_count"
+               value="{% if profile %}{{ profile.retry_count }}{% else %}3{% endif %}">
+    </p>
+
+    <p>
+        Refresh Interval<br>
+        <input type="number"
+               name="refresh_interval"
+               value="{% if profile %}{{ profile.refresh_interval }}{% else %}30{% endif %}">
+    </p>
+
+    <p>
+        Preferred Event<br>
+        <input type="text"
+               name="preferred_event"
+               value="{{ profile.preferred_event }}">
+    </p>
+
+    <p>
+        Preferred Slot<br>
+        <input type="text"
+               name="preferred_slot"
+               value="{{ profile.preferred_slot }}">
+    </p>
+
+    <button type="submit" name="save">
+        Save Settings
+    </button>
+
+    <button type="submit" name="start">
+        Start Automation
+    </button>
+
+</form>
+
+{% endblock %}
